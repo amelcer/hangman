@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 export const Button = styled.button`
   color: #fff !important;
-  width: 300px;
+  width: ${props => (!props.width ? 300 : props.width)}px;
   text-transform: uppercase;
   text-decoration: none;
-  background: #60a3bc;
+  background: ${props => (!props.color ? "#60a3bc" : props.color)};
   padding: 20px;
   margin: 20px;
   border-radius: 50px;
@@ -32,7 +32,7 @@ export const HomeButton = styled.button`
   padding: 20px;
   margin: 20px;
   border-radius: 50px;
-  display: inline-block;
+  display: block;
   border: none;
   transition: all 0.4s ease 0s;
   position: absolute;
@@ -53,9 +53,13 @@ export const CenterContainer = styled.div`
   justify-self: center;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
 `;
 
 export const Container = styled.div`
-  width: 100%;
+  width: 80%;
   height: 100%;
+  justify-self: center;
+  justify-items: center;
+  display: flex;
 `;

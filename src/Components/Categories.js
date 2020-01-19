@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Container, HomeButton, CenterContainer } from "./ViewComponents";
-import styled from "styled-components";
+import { HomeButton, CenterContainer } from "./ViewComponents";
 
 function Categories() {
   const [isLoading, setLoading] = useState(true);

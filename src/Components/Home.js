@@ -6,13 +6,13 @@ function Home() {
   return (
     <CenterContainer>
       <Link to="/game">
-        <Button> Play! </Button>
+        <Button width="300"> Play! </Button>
       </Link>
       <Link to="/categories">
-        <Button> Categories </Button>
+        <Button width="300"> Categories </Button>
       </Link>
       <Link to="/scoreboard">
-        <Button> Score board </Button>
+        <Button width="300"> Score board </Button>
       </Link>
     </CenterContainer>
   );
