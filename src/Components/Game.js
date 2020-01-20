@@ -9,6 +9,7 @@ import {
 } from "./ViewComponents";
 import styled from "styled-components";
 import ReactTooltip from "react-tooltip";
+import Timer from "./Timer";
 
 const url = "http://www.mocky.io/v2/5ce287fe340000ad3a773515";
 
@@ -98,6 +99,16 @@ const MissedCharsContainer = styled.div`
   grid-area: missedChars;
 `;
 
+const TimerContainer = styled.div`
+  position: absolute;
+  top: 160px;
+  right: 50px;
+  width: 140px;
+  height: 100px;
+  background: #dba100;
+  border-radius: 20px;
+`;
+
 function Game() {
   const [isLoading, setLoading] = useState(true);
   const [tries, setTries] = useState(1);
@@ -107,6 +118,8 @@ function Game() {
   const [guessedChars, setGuessedChars] = useState([]);
   const [missedChars, setMissedChars] = useState([]);
   const [tooltipRef, setToolTipRef] = useState();
+  const [time, setTime] = useState(0);
+  const [startTimer, setStartTimer] = useState(true);
   //const [passwordGuess, setPasswordGuess] = useState();
   useEffect(() => {
     axios
@@ -176,6 +189,8 @@ function Game() {
     }, 1500);
   };
 
+  const handleSeconds = () => {};
+
   return (
     <Container>
       <Link to="/">
@@ -186,6 +201,9 @@ function Game() {
         <CenterContainer>"Loading..."</CenterContainer>
       ) : (
         <GameContainer>
+          <TimerContainer>
+            <Timer setTime={setTime} runTimer={startTimer} />
+          </TimerContainer>
           <Category> {password.category} </Category>
           <Tries> Tries left: {tries} </Tries>
           {showHint && <Hint> {password.hint}</Hint>}
@@ -193,7 +211,7 @@ function Game() {
             {password.title
               .split("")
               .map(letter =>
-                letter != " "
+                letter !== " "
                   ? guessedChars.includes(letter.toUpperCase())
                     ? letter
                     : "_"
@@ -207,7 +225,6 @@ function Game() {
                 onChange={handleCharGuessInput}
                 data-tip
                 data-event="submit"
-                delayHide={200}
                 data-for="usedChar"
                 ref={ref => setToolTipRef(ref)}
               ></InputChar>
