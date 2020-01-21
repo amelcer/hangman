@@ -65,3 +65,23 @@ export const Container = styled.div`
   justify-items: center;
   display: flex;
 `;
+
+export const NameInput = styled.input.attrs(props => ({
+  type: "text",
+  required: true
+}))`
+  width: ${props => (!props.width ? 300 : props.width)}px;
+  padding: 10px;
+  text-align: center;
+`;
+
+export const Paragraph = styled.p`
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  padding: 20px;
+`;
+
+export const Form = styled.form`
+  display: block;
+`;

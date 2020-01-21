@@ -25,7 +25,7 @@ function Hangman() {
     <Container>
       {gameOver && time > 0 ? (
         win ? (
-          <Win time={time} />
+          <Win time={time} setGameOver={setGameOver} />
         ) : (
           <Lose setGameOver={setGameOver} />
         )
