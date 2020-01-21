@@ -85,3 +85,34 @@ export const Paragraph = styled.p`
 export const Form = styled.form`
   display: block;
 `;
+
+export const Table = styled.table`
+  border-collapse: collapse;
+  width: 300px;
+  padding: 10px;
+`;
+export const TableBody = styled.tbody`
+  width: "100%";
+  height: "100%";
+`;
+
+export const TableRow = styled.tr`
+  padding: 5px;
+  text-align: center;
+  background: #1ac6ff;
+  &:nth-child(odd) {
+    background: #66d9ff;
+  }
+`;
+
+export const TableData = styled.td`
+  padding: 5px;
+  text-align: center;
+`;
+
+export const TableHeader = styled.th`
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #0099cc;
+`;

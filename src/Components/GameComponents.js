@@ -57,7 +57,7 @@ export const PasswordChar = styled.div`
 
 export const InputChar = styled.input.attrs(props => ({
   type: "text",
-  pattern: "[A-Za-z]{1}",
+  pattern: "[A-Za-z:]{1}",
   maxLength: 1,
   required: true
 }))`
@@ -67,6 +67,7 @@ export const InputChar = styled.input.attrs(props => ({
 `;
 
 export const InputPassword = styled.input.attrs(props => ({
+  pattern: "[a-zA-Z:]",
   required: true,
   type: "text"
 }))`
