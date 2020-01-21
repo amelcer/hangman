@@ -82,14 +82,9 @@ function Game({ setGameOver, setWin }) {
         setGuessedChars([...guessedChars, guessedChar]);
         setGuessedChar("");
 
-        const passwordChars = [...new Set(title.split("").map(x => x))]
-          .sort()
-          .join("");
-        const guessedCharsToPassword = [...guessedChars, guessedChar]
-          .sort()
-          .join("");
+        const passwordChars = [...new Set(title.split("").map(x => x))].length;
 
-        if (passwordChars === guessedCharsToPassword) {
+        if (passwordChars === guessedChars.length + 1) {
           endGame(true);
         }
       } else {
