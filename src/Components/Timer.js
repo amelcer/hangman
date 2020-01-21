@@ -15,21 +15,21 @@ const Time = styled.p`
   width: 100%;
 `;
 
-function Timer({ setTime, runTimer }) {
+function Timer({ setTime, gameOver }) {
   const [seconds, setSeconds] = useState(0);
 
   useEffect(() => {
     let interval = null;
-    if (runTimer) {
+    if (!gameOver) {
       interval = setInterval(() => {
         setSeconds(seconds => seconds + 1);
       }, 1000);
-    } else if (!runTimer && seconds !== 0) {
+    } else if (gameOver && seconds !== 0) {
       setTime(seconds);
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [seconds, runTimer]);
+  }, [seconds, gameOver]);
 
   return (
     <Clock>

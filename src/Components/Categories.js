@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
-import { HomeButton, CenterContainer } from "./ViewComponents";
+import HomeButtonComponent from "./HomeButtonComponent";
+import { CenterContainer } from "./ViewComponents";
 
 function Categories() {
   const [isLoading, setLoading] = useState(true);
@@ -18,9 +18,7 @@ function Categories() {
 
   return (
     <CenterContainer>
-      <Link to="/">
-        <HomeButton>Powrót</HomeButton>
-      </Link>
+      <HomeButtonComponent />
       {isLoading ? (
         "Loading categories..."
       ) : (

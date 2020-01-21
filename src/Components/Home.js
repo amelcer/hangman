@@ -5,7 +5,7 @@ import { Button, CenterContainer } from "./ViewComponents";
 function Home() {
   return (
     <CenterContainer>
-      <Link to="/game">
+      <Link to="/hangman">
         <Button width="300"> Play! </Button>
       </Link>
       <Link to="/categories">

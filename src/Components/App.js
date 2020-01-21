@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./Home";
 import ScoreBoard from "./ScoreBoard";
-import Game from "./Game";
+import Hangman from "./Hangman";
 import Categories from "./Categories";
 function App() {
   return (
@@ -13,8 +13,8 @@ function App() {
           <Route path="/" exact>
             <Home />
           </Route>
-          <Route path="/game">
-            <Game />
+          <Route path="/hangman">
+            <Hangman />
           </Route>
           <Route path="/scoreboard">
             <ScoreBoard />

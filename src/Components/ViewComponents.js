@@ -52,6 +52,7 @@ export const CenterContainer = styled.div`
   align-self: center;
   justify-self: center;
   display: flex;
+  text-align: center;
   flex-direction: column;
   margin: 0 auto;
 `;
@@ -59,6 +60,7 @@ export const CenterContainer = styled.div`
 export const Container = styled.div`
   width: 80%;
   height: 100%;
+  margin: 0 auto;
   justify-self: center;
   justify-items: center;
   display: flex;
