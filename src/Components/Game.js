@@ -69,6 +69,7 @@ const PasswordChar = styled.div`
 `;
 
 const InputChar = styled.input.attrs(props => ({
+  type: "text",
   pattern: "[A-Za-z]{1}",
   maxLength: 1,
   required: true
@@ -79,8 +80,8 @@ const InputChar = styled.input.attrs(props => ({
 `;
 
 const InputPassword = styled.input.attrs(props => ({
-  pattern: "[A-Za-z]{1,}",
-  required: true
+  required: true,
+  type: "text"
 }))`
   padding: 10px;
   width: 200px;
@@ -114,20 +115,20 @@ function Game() {
   const [tries, setTries] = useState(1);
   const [password, setPassword] = useState();
   const [showHint, setShowHint] = useState(false);
-  const [guessedChar, setGuessedChar] = useState();
+  const [guessedChar, setGuessedChar] = useState("");
   const [guessedChars, setGuessedChars] = useState([]);
   const [missedChars, setMissedChars] = useState([]);
   const [tooltipRef, setToolTipRef] = useState();
   const [time, setTime] = useState(0);
   const [startTimer, setStartTimer] = useState(true);
-  //const [passwordGuess, setPasswordGuess] = useState();
+  const [guessedPassword, setGuessedPassword] = useState();
+
   useEffect(() => {
     axios
       .get(url)
       .then(response => {
         const { data } = response;
         const randomizedId = getRandomIndex(data.words.length);
-        const wordLength = data.words[randomizedId].title.length;
         setPassword(data.words[randomizedId]);
         setTries(data.tries);
         setLoading(false);
@@ -142,54 +143,54 @@ function Game() {
     return Math.floor(Math.random() * (maxValue - minValue)) + minValue;
   };
 
-  const inputChange = event => {
-    event.target.value = event.target.value.toUpperCase();
-  };
-
-  const handlePasswordInput = event => {
-    inputChange(event);
-  };
-
-  const handleCharGuessInput = event => {
-    inputChange(event);
-    setGuessedChar(event.target.value.toLowerCase());
-  };
-
-  const charGuess = event => {
-    event.preventDefault();
-    if (missedChars.includes(guessedChar.toUpperCase())) {
-      ReactTooltip.show(tooltipRef);
-    } else {
-      const title = password.title.toLowerCase();
-      const indexes = [];
-      for (let i = 0; i < title.length; i++) {
-        if (title[i] === guessedChar) indexes.push(i);
-      }
-
-      if (indexes.length > 0) {
-        setGuessedChars([...guessedChars, guessedChar.toUpperCase()]);
-      } else {
-        if (tries - 1 === 0) {
-          setTries(0);
-          //endGame()
-        } else {
-          setMissedChars([...missedChars, guessedChar.toUpperCase()]);
-          setTries(tries - 1);
-        }
-      }
-    }
-  };
-  const passwordGuess = event => {
-    event.preventDefault();
-  };
-
   const hideToolTip = () => {
     setTimeout(() => {
       ReactTooltip.hide(tooltipRef);
     }, 1500);
   };
 
-  const handleSeconds = () => {};
+  const handleCharInput = e => {
+    setGuessedChar(e.target.value.toUpperCase());
+  };
+
+  const handleCharSubmit = e => {
+    e.preventDefault();
+    if (missedChars.includes(guessedChar)) {
+      ReactTooltip.show(tooltipRef);
+    } else {
+      const title = password.title.toUpperCase();
+      const indexes = [];
+      for (let i = 0; i < title.length; i++) {
+        if (title[i] === guessedChar) indexes.push(i);
+      }
+
+      if (indexes.length > 0) {
+        setGuessedChars([...guessedChars, guessedChar]);
+        setGuessedChar("");
+      } else {
+        if (tries - 1 === 0) {
+          setTries(0);
+          //endGame()
+        } else {
+          setMissedChars([...missedChars, guessedChar]);
+          setTries(tries - 1);
+          setGuessedChar("");
+        }
+      }
+    }
+  };
+  const handleGuessedPassword = e => {
+    setGuessedPassword(e.target.value.toUpperCase());
+  };
+
+  const handlePasswordSubmit = e => {
+    e.preventDefault();
+    if (password.title.toUpperCase() === guessedPassword) {
+      alert("win");
+    } else {
+      alert("lose");
+    }
+  };
 
   return (
     <Container>
@@ -219,16 +220,17 @@ function Game() {
               )}
           </PasswordContainer>
           <Inputs>
-            <Form onSubmit={charGuess}>
+            <Form onSubmit={handleCharSubmit}>
               <InputChar
-                vlaue={guessedChar}
-                onChange={handleCharGuessInput}
+                type="text"
+                value={guessedChar}
+                onChange={handleCharInput}
                 data-tip
                 data-event="submit"
                 data-for="usedChar"
                 ref={ref => setToolTipRef(ref)}
               ></InputChar>
-              <Button width="200">Guess a char!</Button>
+              <Button width="150">Guess char!</Button>
               <ReactTooltip
                 id="usedChar"
                 type="error"
@@ -238,11 +240,13 @@ function Game() {
                 <span>You have tried this char!</span>
               </ReactTooltip>
             </Form>
-            <Form onSubmit={passwordGuess}>
+            <Form onSubmit={handlePasswordSubmit}>
               <InputPassword
-                onChange={(inputChange, handlePasswordInput)}
+                type="text"
+                value={guessedPassword}
+                onChange={handleGuessedPassword}
               ></InputPassword>
-              <Button width="200"> Guess password! </Button>
+              <Button width="150">Guess password!</Button>
             </Form>
             <Button
               width="150"
